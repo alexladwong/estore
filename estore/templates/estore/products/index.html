@@ -1,0 +1,95 @@
+{% block content %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %} e-Collections {% endblock title %}</title>
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+    crossorigin="anonymous"
+    />
+    
+    {% comment %} Alertify JS {% endcomment %}
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+    {% comment %} <link rel="stylesheet" href="magicscroll/magicscroll.css"/> {% endcomment %}
+    
+    <style>
+      a {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    {% include 'estore/inc/navbar.html' %} 
+    {% include 'estore/inc/slider.html' %} 
+    {% include 'estore/layouts/main.html' %} 
+
+    <div class="py-3 bg-warning">
+      <div class="container">
+        <a class="text-white" href="{% url 'home' %}"> Home /</a>
+        <a class="text-white" href="{% url 'collections' %}" > Collections /</a>   
+        <a class="text-white" href="{% url 'collectionsview' category.slug %}">{{ category.name }}</a>
+      </div>  
+    </div> 
+
+    <div class="py-5">
+    <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+                <h2 style="padding:20px;"> {{ category.name }} </h2>
+                <hr>
+                <div class="row">
+                  {% for item in products %}
+                    <div class="col-md-3">  
+                        <div class="card">
+                          <a href="{% url 'productview' item.category.slug item.slug %}" class="img-wrap">
+                                <div class="card-body">
+                                    <div class="category-image">
+                                        <img src="{{ item.product_image.url }}" alt="Product image" class="w-100"/>
+                                    </div>                       
+                                    <h4 class="text-center"> {{ item.name }} </h4>
+                                    <span style="color: #7d7d7d; text-decoration: line-through " class="float-start">{{ item.original_price | stringformat:'uUGX' }}</span>
+                                    <span class="float-end">{{ item.selling_price | stringformat:'uUGX' }}</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>  
+                  {% endfor %}
+            </div>
+        </div>
+    </div>
+  
+    </b>  
+
+
+    {% block scripts %}
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script src="magicscroll/magicscroll.js"></script>
+    {% endblock scripts %}
+
+    <script>
+      {% comment %} Alertify {% endcomment %}
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    
+    <script>
+      alertify.set('notifier','position', 'top-right');
+
+      {% for msg in messages %} 
+      alertify.success('{{ msg }}');
+      {% endfor %} 
+    </script> 
+    </script> 
+  </body>
+</html>
+{% endblock %}

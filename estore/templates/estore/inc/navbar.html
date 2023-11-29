@@ -1,0 +1,74 @@
+{% comment %} {% include 'estore/layouts/main.html' %}  {% endcomment %}
+
+<div> 
+  <nav class="navbar navbar-expand-lg bg-warning">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'home' %}"
+      ><span style="font-weight: bold; font-size: 20px; color: #ffff"
+      >MrDollar</span
+      >Shop</a>
+      <marquee style="background:#f6bc03; height:20px; margin-top:0px">
+      <p> 🎉 🎉  Get our Promotional offer this season. <span style="color:red; 
+        text-decoration: underline;font-style: italic;">For every purchase you get
+        <span style="color:white; font-size:15px;"> 70% OFF</span>   🎉 🎉 </p>
+      </marquee>
+   {% comment %} <form style="top: 10rem;  width:20rem;" class="form-inline my-8 my-lg-1 serch" action="/search">
+      <input class="form-control mr-sm-5" type="search" placeholder="Search for Anything You Want"
+      aria-label="Search" name="query">
+      <button class="btn" type="submit" style="margin: 0;"><i class="fa fa-search"
+        aria-hidden="true"></i></button>
+      </form>  {% endcomment %}
+      
+      <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'collections' %}">Collections</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'viewcart' %}">Cart</a> 
+        </li>
+        
+          {% if request.user.is_authenticated %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ request.user }}
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="nav-link" href="{% url 'logout' %}">LogOut</a></li>
+              </ul>
+            </li>
+           
+          {% else %}
+            <li class="nav-item">
+                  <a class="nav-link" href="{% url 'loginpage' %}">LogIn</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'register' %}">Register</a>
+            </li>
+        {% endif %}
+         
+      </ul>
+      
+      <hr>
+    </div>
+  </nav>
+</div>
+</div>
